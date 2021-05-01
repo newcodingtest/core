@@ -1,4 +1,4 @@
-# 스프링 기본원리 공부 저장소
+# 스프링 기본원리 공부 저장소.
 
 ### Reference Documentation
 For further reference, please consider the following sections:

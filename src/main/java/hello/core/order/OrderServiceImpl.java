@@ -1,11 +1,13 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
-import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class OrderServiceImpl implements OrderService {
     /**
@@ -21,7 +23,9 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+   //해당 내용은 @RequiredArgsConstructor 어노테이션으로 대체가능 : final 필드값의 생성자를 만들어주는 어노테이션
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository,@MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
@@ -40,4 +44,10 @@ public class OrderServiceImpl implements OrderService {
         // 3. 최종적으로 할인된 금액을 받음
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+    //테스트 용도
+   public MemberRepository getMemberRepository(){
+       return memberRepository;
+    }
+
 }
